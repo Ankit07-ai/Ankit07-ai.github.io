@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ankit Kumar Choudhary - Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Add Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">Ankit Kumar</a>
+            <ul class="nav-menu">
+                <li><a href="#" onclick="showPage('home')" class="active">Home</a></li>
+                <li><a href="#" onclick="showPage('about')">About</a></li>
+                <li><a href="#" onclick="showPage('projects')">Projects</a></li>
+                <li><a href="#" onclick="showPage('skills')">Skills</a></li>
+                <li><a href="#" onclick="showPage('contact')">Contact</a></li>
+                <li><a href="#" onclick="showPage('feedback')">Feedback</a></li>
+            </ul>
+            <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <!-- Home Section -->
+            <section id="home" class="page-section active">
+                <div class="hero">
+                    <div class="hero-content">
+                        <h1>Hi I am<br>Ankit Kumar Choudhary</h1>
+                        <p>Gaming Creator & Computer Science Engineer</p>
+                                                
+                        <div class="video-container">
+                            <iframe width="560" height="315"
+                                src="https://www.youtube.com/embed/bE2jdoSOuz0?si=Q7kj1av2OtFAIA8t"
+                                title="YouTube video player" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        </div>
+
+                        <div class="social-links">
+                            <a href="https://www.youtube.com/@r2kankitgamer970" target="_blank"><i class="fab fa-youtube"></i></a>
+                            <a href="https://www.instagram.com/r2k_ankit_gamer/" target="_blank"><i class="fab fa-instagram"></i></a>
+                            <a href="https://www.facebook.com/profile.php?id=100036671951453" target="_blank"><i class="fab fa-facebook"></i></a>
+                            <a href="https://www.linkedin.com/in/ankit-kumar-choudhary-84269b258/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                        </div>
+                    </div>
+                    <img src="Logo.jpg" alt="Ankit Kumar Choudhary" class="profile-image">
+                </div>
+            </section>
+
+            <!-- About Section -->
+            <section id="about" class="page-section">
+                <div class="about-content">
+                    <div class="about-text">
+                        <h2>About Me</h2>
+                        <p>My name is Ankit Kumar Choudhary, and I am a passionate gaming creator and Computer Science
+                            Engineering student. I love creating content that entertains and engages my audience while
+                            developing my technical skills.</p>
+                        <p>I am currently pursuing a B.Tech degree in Computer Science & Engineering and am in my 4th
+                            Year, 7th semester. I have a strong interest in game development, programming, and creating
+                            engaging digital content.</p>
+                        <p>In my free time, I enjoy playing video games, exploring new technologies, and connecting with
+                            fellow gamers and creators. I'm always looking to learn new skills and improve my craft.</p>
+                    </div>
+                    <div class="stats">
+                        <div class="stat-item">
+                            <h3>7.16</h3>
+                            <p>Current CGPA</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3>4th</h3>
+                            <p>Year Student</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3>2026</h3>
+                            <p>Expected Graduation</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Projects Section -->
+            <section id="projects" class="page-section">
+                <h2>My Projects</h2>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <h3>Jarvis Virtual Assistant</h3>
+                        <p>A voice-controlled assistant built using Python and libraries like pyttsx3. Features include
+                            voice recognition, command processing, and automated responses.</p>
+                        <p><strong>Technologies:</strong> Python, pyttsx3, Speech Recognition</p>
+                        <p><strong>Duration:</strong> Sept - Nov 2024</p>
+                    </div>
+                    <div class="project-card">
+                        <h3>Wi-Fi Controlled Robotic Car</h3>
+                        <p>A mobile-controlled robotic car with features like forward/backward movement, turning,
+                            lighting control, and obstacle avoidance.</p>
+                        <p><strong>Technologies:</strong> Arduino IDE, Python, Wi-Fi Module</p>
+                        <p><strong>Duration:</strong> Aug - Dec 2024</p>
+                    </div>
+                    <div class="project-card">
+                        <h3>Gaming Content Creation</h3>
+                        <p>Regular content creation for YouTube channel focused on gaming reviews, tutorials, and
+                            entertainment content.</p>
+                        <p><strong>Platform:</strong> YouTube, Instagram, Facebook</p>
+                        <p><strong>Focus:</strong> Gaming, Entertainment, Tech Reviews</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Skills Section -->
+            <section id="skills" class="page-section">
+                <h2>Technical Skills</h2>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <h3>Programming Languages</h3>
+                        <p>Python, Java, C-Language, JavaScript, HTML, CSS, SQL</p>
+                    </div>
+                    <div class="project-card">
+                        <h3>Tools & Software</h3>
+                        <p>Arduino IDE, Microsoft Office Suite (Excel, Word, PowerPoint), Git</p>
+                    </div>
+                    <div class="project-card">
+                        <h3>Certifications</h3>
+                        <p>• GUVI Machine Learning 101 (Oct 2024)<br>
+                            • Cisco Cybersecurity (June 2023)<br>
+                            • Ethical Hacking (AICTE) (April 2025)</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Section -->
+            <section id="contact" class="page-section">
+                <h2>Get In Touch</h2>
+                <p style="text-align: center;">Thank you for visiting my portfolio! If you have any questions or would like to collaborate, feel free to reach out.</p>
+                <p>Email: <strong>akumar70072@gmail.com</strong></p>
+                <br>
+                <div class="contact-form">
+                    <form id="contactForm" action="https://formsubmit.co/akumar70072@gmail.com" method="POST">
+                        <!-- Fixed redirect URL - use the full current page URL -->
+                        <input type="hidden" name="_next" value="https://ankit07-ai.github.io/index.html?submitted=contact">
+                        <input type="hidden" name="_captcha" value="false">
+                        <input type="hidden" name="_subject" value="New Portfolio Contact!">
+                        <input type="hidden" name="_template" value="table">
+                        
+                        <div class="form-group">
+                            <label for="name">Name:</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="gender">Gender:</label>
+                            <select id="gender" name="gender">
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="dob">Date of Birth:</label>
+                            <input type="date" id="dob" name="dob">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message:</label>
+                            <textarea id="message" name="message" placeholder="Your message here..." required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Send Message</button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Feedback Section -->
+            <section id="feedback" class="page-section">
+                <h2>Feedback</h2>
+                <p style="text-align: center;">Your feedback is valuable to me! Please share your thoughts about my work, projects, or any suggestions you might have.</p>
+                <br>
+
+                <div class="contact-form">
+                    <form id="feedbackForm" action="https://formsubmit.co/akumar70072@gmail.com" method="POST">
+                        <!-- Fixed redirect URL - use the full current page URL -->
+                        <input type="hidden" name="_next" value="https://ankit07-ai.github.io/index.html?submitted=feedback">
+                        <input type="hidden" name="_captcha" value="false">
+                        <input type="hidden" name="_subject" value="New Portfolio Feedback!">
+                        <input type="hidden" name="_template" value="table">
+                        
+                        <div class="form-group">
+                            <label for="feedbackName">Name:</label>
+                            <input type="text" id="feedbackName" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="feedbackEmail">Email:</label>
+                            <input type="email" id="feedbackEmail" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="rating">Rating:</label>
+                            <select id="rating" name="rating">
+                                <option value="5">⭐⭐⭐⭐⭐ Excellent</option>
+                                <option value="4">⭐⭐⭐⭐ Good</option>
+                                <option value="3">⭐⭐⭐ Average</option>
+                                <option value="2">⭐⭐ Below Average</option>
+                                <option value="1">⭐ Poor</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="feedbackMessage">Feedback:</label>
+                            <textarea id="feedbackMessage" name="feedback" placeholder="Please share your feedback..." required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Submit Feedback</button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Thank You Message Section (Hidden by default) -->
+            <section id="thankyou" class="page-section" style="display: none;">
+                <div class="hero">
+                    <h1>Thank You!</h1>
+                    <p>Your message has been successfully submitted. I'll get back to you soon.</p>
+                    <button onclick="showPage('home')" class="submit-btn">Return to Home</button>
+                </div>
+            </section>
+        </div>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
