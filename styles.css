@@ -7,10 +7,12 @@
 body {
     font-family: 'Arial', sans-serif;
     line-height: 1.6;
-    color: #ffffff;
-    background: #0f0f0f;
-    min-height: 100vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.5)90%,rgba(4, 4, 4, 0.5)90%), url(Ankit_background.png);
+    background-position: center;
+    background-size: cover;
+    height: 56vh;
 }
+
 
 /* Navigation Bar */
 nav {
@@ -58,7 +60,7 @@ nav {
 
 .nav-menu a:hover,
 .nav-menu a.active {
-    color: #764ba2;
+    color: #730fe5;
     transform: translateY(-2px);
 }
 
@@ -109,7 +111,7 @@ main {
 .hero h1 {
     font-size: 3.5rem;
     margin-bottom: 1rem;
-    background: linear-gradient(45deg, #667eea, #764ba2);
+    background: linear-gradient(45deg, #243687, #8e3ce1);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -118,7 +120,7 @@ main {
 
 .hero p {
     font-size: 1.3rem;
-    color: #aaa;
+    color: #e6dcdc;
     margin-bottom: 2rem;
     max-width: 600px;
 }
@@ -130,18 +132,6 @@ main {
     object-fit: cover;
     border: 5px solid #764ba2;
     box-shadow: 0 10px 30px rgba(118, 75, 162, 0.3);
-}
-
-/* Video Container */
-.video-container {
-    margin: 2rem 0;
-}
-
-.video-container iframe {
-    width: 100%;
-    max-width: 560px;
-    height: 315px;
-    border-radius: 10px;
 }
 
 /* Social Links */
@@ -185,7 +175,7 @@ h2 {
     font-size: 2.5rem;
     margin-bottom: 2rem;
     text-align: center;
-    background: linear-gradient(45deg, #667eea, #764ba2);
+    background: linear-gradient(45deg, #0530ec, #a964ee);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -204,7 +194,7 @@ h2 {
 
 .about-text p {
     font-size: 1.2rem;
-    color: #aaa;
+    color: #fff7f7;
     margin-bottom: 1.5rem;
     max-width: 800px;
     margin-left: auto;
@@ -220,7 +210,7 @@ h2 {
 }
 
 .stat-item {
-    background: rgba(118, 75, 162, 0.1);
+    background: rgba(178, 144, 211, 0.1);
     padding: 1.5rem 2rem;
     border-radius: 10px;
     text-align: center;
@@ -237,7 +227,7 @@ h2 {
 }
 
 .stat-item p {
-    color: #aaa;
+    color: #f2e6e6;
     font-size: 1rem;
 }
 
@@ -270,17 +260,17 @@ h2 {
 }
 
 .project-card p {
-    color: #aaa;
+    color: #f0ecec;
     margin-bottom: 1rem;
 }
 
 /* Contact Form */
 .contact-form {
-    background: rgba(30, 30, 30, 0.7);
+    background: rgba(14, 13, 13, 0.7);
     border-radius: 15px;
     padding: 2rem;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    border: 1px solid rgba(118, 75, 162, 0.2);
+    box-shadow: 0 5px 15px rgba(161, 155, 155, 0.1);
+    border: 1px solid rgba(131, 55, 207, 0.2);
     max-width: 600px;
     margin: 0 auto;
 }
@@ -301,11 +291,11 @@ h2 {
 .form-group textarea {
     width: 100%;
     padding: 1rem;
-    background: rgba(50, 50, 50, 0.5);
-    border: 1px solid rgba(118, 75, 162, 0.3);
+    background: rgba(17, 16, 16, 0.5);
+    border: 1px solid rgba(134, 46, 234, 0.3);
     border-radius: 8px;
     font-size: 1rem;
-    color: #ffffff;
+    color: #fffdfd;
     transition: all 0.3s ease;
 }
 
@@ -313,7 +303,7 @@ h2 {
 .form-group select:focus,
 .form-group textarea:focus {
     outline: none;
-    border-color: #764ba2;
+    border-color: #8649bf;
     box-shadow: 0 0 10px rgba(118, 75, 162, 0.3);
 }
 
