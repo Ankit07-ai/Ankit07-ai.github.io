@@ -178,8 +178,8 @@
                 <br>
                 <div class="contact-form">
                     <form id="contactForm" action="https://formsubmit.co/akumar70072@gmail.com" method="POST">
-                        <!-- Fixed redirect URL - use the full current page URL -->
-                        <input type="hidden" name="_next" value="https://ankit07-ai.github.io/index.html?submitted=contact">
+                        <!-- Redirect will be set dynamically to the current page URL -->
+                        <input id="contactNextInput" type="hidden" name="_next" value="?submitted=contact">
                         <input type="hidden" name="_captcha" value="false">
                         <input type="hidden" name="_subject" value="New Portfolio Contact!">
                         <input type="hidden" name="_template" value="table">
@@ -221,8 +221,8 @@
 
                 <div class="contact-form">
                     <form id="feedbackForm" action="https://formsubmit.co/akumar70072@gmail.com" method="POST">
-                        <!-- Fixed redirect URL - use the full current page URL -->
-                        <input type="hidden" name="_next" value="https://ankit07-ai.github.io/index.html?submitted=feedback">
+                        <!-- Redirect will be set dynamically to the current page URL -->
+                        <input id="feedbackNextInput" type="hidden" name="_next" value="?submitted=feedback">
                         <input type="hidden" name="_captcha" value="false">
                         <input type="hidden" name="_subject" value="New Portfolio Feedback!">
                         <input type="hidden" name="_template" value="table">
@@ -254,8 +254,8 @@
                 </div>
             </section>
 
-            <!-- Thank You Message Section (Hidden by default) -->
-            <section id="thankyou" class="page-section" style="display: none;">
+            <!-- Thank You Message Section -->
+            <section id="thankyou" class="page-section">
                 <div class="hero">
                     <h1>Thank You!</h1>
                     <p>Your message has been successfully submitted. I'll get back to you soon.</p>
