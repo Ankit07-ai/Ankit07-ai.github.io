@@ -169,6 +169,19 @@ function bindEmailFieldFeedback() {
     });
 }
 
+function setFormSubmitRedirects() {
+    const baseUrl = `${window.location.origin}${window.location.pathname}`;
+    const contactNext = document.getElementById('contactNextInput');
+    const feedbackNext = document.getElementById('feedbackNextInput');
+
+    if (contactNext) {
+        contactNext.value = `${baseUrl}?submitted=contact`;
+    }
+    if (feedbackNext) {
+        feedbackNext.value = `${baseUrl}?submitted=feedback`;
+    }
+}
+
 function revealSocialLinks() {
     const links = document.querySelectorAll('.social-links a');
     links.forEach((link, index) => {
@@ -205,10 +218,15 @@ function init() {
     bindEmailFieldFeedback();
     revealSocialLinks();
     initNavigationInteractions();
+    setFormSubmitRedirects();
 
     const urlParams = new URLSearchParams(window.location.search);
     const submitted = urlParams.get('submitted');
     if (submitted) {
+        const thankyouSection = document.getElementById('thankyou');
+        if (thankyouSection) {
+            thankyouSection.style.display = '';
+        }
         showPage('thankyou');
         window.history.replaceState({}, document.title, window.location.pathname);
     } else {
