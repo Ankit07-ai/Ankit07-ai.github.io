@@ -1,238 +1,221 @@
- // Navigation functionality
-        function showPage(pageId) {
-            // Hide all sections
-            const sections = document.querySelectorAll('.page-section');
-            sections.forEach(section => {
-                section.classList.remove('active');
-                section.style.display = 'none';
+const particleLayer = document.querySelector('.particle-layer');
+const particles = [];
+const mouse = { x: 50, y: 50 };
+
+function createParticles() {
+    if (!particleLayer) return;
+
+    for (let i = 0; i < 16; i++) {
+        const particle = document.createElement('span');
+        const size = 4 + Math.random() * 8;
+        particle.className = 'particle';
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        particle.style.left = `${Math.random() * 100}%`;
+        particle.style.top = `${Math.random() * 100}%`;
+        particle.style.opacity = `${0.14 + Math.random() * 0.25}`;
+        particle.dataset.offsetX = (Math.random() - 0.5) * 50;
+        particle.dataset.offsetY = (Math.random() - 0.5) * 50;
+        particleLayer.appendChild(particle);
+        particles.push(particle);
+    }
+}
+
+function animateParticles() {
+    particles.forEach((particle, index) => {
+        const offsetX = Number(particle.dataset.offsetX);
+        const offsetY = Number(particle.dataset.offsetY);
+        const drift = (Math.sin((Date.now() * 0.0007) + index) * 6) || 0;
+        const x = (mouse.x - 50) * 0.12 + offsetX * 0.12 + drift;
+        const y = (mouse.y - 50) * 0.08 + offsetY * 0.08 - drift;
+        particle.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+    });
+    requestAnimationFrame(animateParticles);
+}
+
+function handlePointerMove(event) {
+    mouse.x = (event.clientX / window.innerWidth) * 100;
+    mouse.y = (event.clientY / window.innerHeight) * 100;
+    document.documentElement.style.setProperty('--mouse-x', `${mouse.x}%`);
+    document.documentElement.style.setProperty('--mouse-y', `${mouse.y}%`);
+}
+
+function revealSectionItems(pageId) {
+    const section = document.getElementById(pageId);
+    if (!section) return;
+
+    const items = section.querySelectorAll('.hero-content, .profile-image, .project-card, .about-card, .about-row, .contact-form, .feedback .contact-form');
+    items.forEach((item, index) => {
+        item.style.opacity = '0';
+        item.style.transform = 'translateY(18px)';
+        item.style.transition = 'opacity 0.55s ease, transform 0.55s ease';
+        window.setTimeout(() => {
+            item.style.opacity = '1';
+            item.style.transform = 'translateY(0)';
+        }, 90 * index + 180);
+    });
+}
+
+function showPage(pageId) {
+    const sections = document.querySelectorAll('.page-section');
+    sections.forEach(section => {
+        section.classList.toggle('active', section.id === pageId);
+    });
+
+    const navLinks = document.querySelectorAll('.nav-menu a');
+    navLinks.forEach(link => {
+        link.classList.toggle('active', link.getAttribute('onclick') === `showPage('${pageId}')`);
+    });
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    document.querySelector('.nav-menu').classList.remove('active');
+
+    setTimeout(() => revealSectionItems(pageId), 120);
+}
+
+function toggleMobileMenu() {
+    document.querySelector('.nav-menu').classList.toggle('active');
+}
+
+function animateHeroTitle() {
+    const heroTitle = document.querySelector('.hero-title');
+    if (!heroTitle) return;
+
+    Array.from(heroTitle.querySelectorAll(':scope > span')).forEach(block => {
+        const words = block.textContent.trim().split(' ').filter(Boolean);
+        block.innerHTML = words.map(word => `<span class="word"><span>${word}</span></span>`).join(' ');
+    });
+
+    const wordNodes = heroTitle.querySelectorAll('.word');
+    wordNodes.forEach((word, index) => {
+        word.style.transitionDelay = `${index * 0.07}s`;
+    });
+
+    window.setTimeout(() => heroTitle.classList.add('reveal'), 200);
+}
+
+function enableCardTilt() {
+    const projectCards = document.querySelectorAll('.project-card');
+    projectCards.forEach(card => {
+        card.addEventListener('pointermove', event => {
+            const rect = card.getBoundingClientRect();
+            const x = ((event.clientX - rect.left) / rect.width - 0.5) * 18;
+            const y = ((event.clientY - rect.top) / rect.height - 0.5) * -18;
+            card.style.transform = `perspective(900px) rotateX(${y}deg) rotateY(${x}deg)`;
+        });
+
+        card.addEventListener('pointerleave', () => {
+            card.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg)';
+        });
+    });
+}
+
+function validateEmail(email) {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+}
+
+function bindFormValidation() {
+    const forms = [
+        { id: 'contactForm', required: ['name', 'email', 'message'], submitText: 'Sending...' },
+        { id: 'feedbackForm', required: ['feedbackName', 'feedbackEmail', 'feedbackMessage'], submitText: 'Submitting...' },
+    ];
+
+    forms.forEach(formData => {
+        const form = document.getElementById(formData.id);
+        if (!form) return;
+
+        form.addEventListener('submit', event => {
+            const missing = formData.required.some(name => {
+                const field = form.querySelector(`#${name}`);
+                return !field || !field.value.trim();
             });
 
-            // Show selected section
-            const targetSection = document.getElementById(pageId);
-            if (targetSection) {
-                targetSection.classList.add('active');
-                targetSection.style.display = 'block';
+            const emailField = form.querySelector('input[type="email"]');
+            const emailIsValid = emailField ? validateEmail(emailField.value.trim()) : true;
+
+            if (missing || !emailIsValid) {
+                event.preventDefault();
+                alert('Please complete all required fields and use a valid email address.');
+                return;
             }
 
-            // Update navigation active state
-            const navLinks = document.querySelectorAll('.nav-menu a');
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-            });
-
-            // Find and activate the clicked link
-            const activeLink = document.querySelector(`[onclick="showPage('${pageId}')"]`);
-            if (activeLink) {
-                activeLink.classList.add('active');
+            const submitBtn = form.querySelector('.submit-btn');
+            if (submitBtn) {
+                submitBtn.textContent = formData.submitText;
+                submitBtn.disabled = true;
             }
+        });
+    });
+}
 
-            // Close mobile menu if open
-            const mobileMenu = document.querySelector('.nav-menu');
-            mobileMenu.classList.remove('active');
-        }
-
-        // Mobile menu toggle
-        function toggleMobileMenu() {
-            const mobileMenu = document.querySelector('.nav-menu');
-            mobileMenu.classList.toggle('active');
-        }
-
-        // Initialize page when DOM is loaded
-        document.addEventListener('DOMContentLoaded', function() {
-            // Check if redirected from form submission
-            const urlParams = new URLSearchParams(window.location.search);
-            const submitted = urlParams.get('submitted');
-            
-            if (submitted) {
-                showPage('thankyou');
-                // Clean up URL
-                window.history.replaceState({}, document.title, window.location.pathname);
+function bindEmailFieldFeedback() {
+    const emailInputs = document.querySelectorAll('input[type="email"]');
+    emailInputs.forEach(input => {
+        input.addEventListener('blur', () => {
+            if (input.value && !validateEmail(input.value.trim())) {
+                input.style.borderColor = '#ff4444';
+                input.style.boxShadow = '0 0 8px rgba(255, 68, 68, 0.22)';
             } else {
-                showPage('home');
-            }
-            
-            // Add typing animation effect to hero title
-            const heroTitle = document.querySelector('.hero h1');
-            if (heroTitle) {
-                heroTitle.style.opacity = '0';
-                setTimeout(() => {
-                    heroTitle.style.opacity = '1';
-                    heroTitle.style.transform = 'translateY(0)';
-                }, 500);
+                input.style.borderColor = 'rgba(255, 255, 255, 0.12)';
+                input.style.boxShadow = 'none';
             }
         });
 
-        // Form validation and submission handlers
-        document.addEventListener('DOMContentLoaded', function () {
-            const contactForm = document.getElementById('contactForm');
-            if (contactForm) {
-                contactForm.addEventListener('submit', function (e) {
-                    // Validate form
-                    const name = this.querySelector('#name').value.trim();
-                    const email = this.querySelector('#email').value.trim();
-                    const message = this.querySelector('#message').value.trim();
-
-                    if (!name || !email || !message) {
-                        e.preventDefault();
-                        alert('Please fill in all required fields.');
-                        return;
-                    }
-
-                    if (!validateEmail(email)) {
-                        e.preventDefault();
-                        alert('Please enter a valid email address.');
-                        return;
-                    }
-
-                    // Show loading state
-                    const submitBtn = this.querySelector('.submit-btn');
-                    submitBtn.textContent = 'Sending...';
-                    submitBtn.disabled = true;
-                });
-            }
-
-            const feedbackForm = document.getElementById('feedbackForm');
-            if (feedbackForm) {
-                feedbackForm.addEventListener('submit', function (e) {
-                    // Validate form
-                    const name = this.querySelector('#feedbackName').value.trim();
-                    const email = this.querySelector('#feedbackEmail').value.trim();
-                    const feedback = this.querySelector('#feedbackMessage').value.trim();
-
-                    if (!name || !email || !feedback) {
-                        e.preventDefault();
-                        alert('Please fill in all required fields.');
-                        return;
-                    }
-
-                    if (!validateEmail(email)) {
-                        e.preventDefault();
-                        alert('Please enter a valid email address.');
-                        return;
-                    }
-
-                    // Show loading state
-                    const submitBtn = this.querySelector('.submit-btn');
-                    submitBtn.textContent = 'Submitting...';
-                    submitBtn.disabled = true;
-                });
-            }
+        input.addEventListener('focus', () => {
+            input.style.borderColor = '#7e4cff';
+            input.style.boxShadow = '0 0 8px rgba(126, 76, 255, 0.18)';
         });
+    });
+}
 
-        // Email validation function
-        function validateEmail(email) {
-            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return re.test(email);
+function revealSocialLinks() {
+    const links = document.querySelectorAll('.social-links a');
+    links.forEach((link, index) => {
+        link.style.opacity = '0';
+        link.style.transform = 'translateY(20px)';
+        window.setTimeout(() => {
+            link.style.transition = 'opacity 0.45s ease, transform 0.45s ease';
+            link.style.opacity = '1';
+            link.style.transform = 'translateY(0)';
+        }, 170 * (index + 1));
+    });
+}
+
+function initNavigationInteractions() {
+    document.addEventListener('click', event => {
+        if (!event.target.closest('.nav-container')) {
+            document.querySelector('.nav-menu').classList.remove('active');
         }
+    });
 
-        // Smooth scrolling for better UX
-        document.addEventListener('DOMContentLoaded', function () {
-            const links = document.querySelectorAll('a[href^="#"]');
-            links.forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        target.scrollIntoView({
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
-        });
-
-        // Debounce function for performance optimization
-        function debounce(func, wait) {
-            let timeout;
-            return function executedFunction(...args) {
-                const later = () => {
-                    clearTimeout(timeout);
-                    func(...args);
-                };
-                clearTimeout(timeout);
-                timeout = setTimeout(later, wait);
-            };
+    document.addEventListener('keydown', event => {
+        if (event.key === 'Escape') {
+            document.querySelector('.nav-menu').classList.remove('active');
         }
+    });
+}
 
-        // Dynamic navigation background on scroll
-        const debouncedScrollHandler = debounce(function () {
-            const nav = document.querySelector('nav');
-            if (window.scrollY > 50) {
-                nav.style.background = 'rgba(0, 0, 0, 0.9)';
-            } else {
-                nav.style.background = 'rgba(15, 15, 15, 0.9)';
-            }
-        }, 10);
+function init() {
+    createParticles();
+    animateParticles();
+    animateHeroTitle();
+    enableCardTilt();
+    bindFormValidation();
+    bindEmailFieldFeedback();
+    revealSocialLinks();
+    initNavigationInteractions();
 
-        window.addEventListener('scroll', debouncedScrollHandler);
+    const urlParams = new URLSearchParams(window.location.search);
+    const submitted = urlParams.get('submitted');
+    if (submitted) {
+        showPage('thankyou');
+        window.history.replaceState({}, document.title, window.location.pathname);
+    } else {
+        showPage('home');
+    }
 
-        // Add some interactive animations for project cards
-        document.addEventListener('DOMContentLoaded', function () {
-            const projectCards = document.querySelectorAll('.project-card');
+    window.addEventListener('pointermove', handlePointerMove);
+}
 
-            projectCards.forEach(card => {
-                card.addEventListener('mouseenter', function () {
-                    this.style.transform = 'translateY(-10px) scale(1.02)';
-                });
-
-                card.addEventListener('mouseleave', function () {
-                    this.style.transform = 'translateY(0) scale(1)';
-                });
-            });
-        });
-
-        // Enhanced form validation with visual feedback
-        document.addEventListener('DOMContentLoaded', function () {
-            const inputs = document.querySelectorAll('input[type="email"]');
-
-            inputs.forEach(input => {
-                input.addEventListener('blur', function () {
-                    if (this.value && !validateEmail(this.value)) {
-                        this.style.borderColor = '#ff4444';
-                        this.style.boxShadow = '0 0 5px rgba(255, 68, 68, 0.3)';
-                    } else {
-                        this.style.borderColor = 'rgba(118, 75, 162, 0.3)';
-                        this.style.boxShadow = 'none';
-                    }
-                });
-
-                input.addEventListener('focus', function () {
-                    this.style.borderColor = '#764ba2';
-                    this.style.boxShadow = '0 0 5px rgba(118, 75, 162, 0.3)';
-                });
-            });
-        });
-
-        // Add loading animation for social links
-        document.addEventListener('DOMContentLoaded', function () {
-            const socialLinks = document.querySelectorAll('.social-links a');
-
-            socialLinks.forEach((link, index) => {
-                link.style.opacity = '0';
-                link.style.transform = 'translateY(20px)';
-
-                setTimeout(() => {
-                    link.style.transition = 'all 0.5s ease';
-                    link.style.opacity = '1';
-                    link.style.transform = 'translateY(0)';
-                }, 200 * (index + 1));
-            });
-        });
-
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', function (e) {
-            const mobileMenu = document.querySelector('.nav-menu');
-            const toggleButton = document.querySelector('.mobile-menu-toggle');
-
-            if (!mobileMenu.contains(e.target) && !toggleButton.contains(e.target)) {
-                mobileMenu.classList.remove('active');
-            }
-        });
-
-        // Add keyboard navigation support
-        document.addEventListener('keydown', function (e) {
-            if (e.key === 'Escape') {
-                const mobileMenu = document.querySelector('.nav-menu');
-                mobileMenu.classList.remove('active');
-            }
-        });
+window.addEventListener('DOMContentLoaded', init);
